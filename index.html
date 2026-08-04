@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Kevwealth — Your Money, Made Clear</title>
+  <title>Kevnomics — Your Money, Made Clear</title>
   <style>
     :root {
       --blue: #1196F0;
@@ -345,25 +345,6 @@
       font-size: 1.1rem;
     }
 
-    .book-btn {
-      display: block;
-      width: 100%;
-      background: var(--blue);
-      color: var(--white);
-      font-family: 'Helvetica Neue', Arial, sans-serif;
-      font-weight: 700;
-      font-size: 1.05rem;
-      padding: 18px;
-      border-radius: 50px;
-      border: none;
-      cursor: pointer;
-      text-align: center;
-      text-decoration: none;
-      transition: background 0.2s, transform 0.15s;
-      letter-spacing: 0.2px;
-    }
-    .book-btn:hover { background: var(--blue-dark); transform: translateY(-2px); }
-
     .retake-btn {
       display: block;
       width: 100%;
@@ -378,6 +359,69 @@
       text-decoration: underline;
     }
     .retake-btn:hover { color: var(--blue); }
+
+    /* ── EMAIL CAPTURE ── */
+    .email-capture-box {
+      background: var(--bg);
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 16px;
+    }
+    .email-capture-box .email-row {
+      display: flex;
+      gap: 10px;
+    }
+    @media (max-width: 500px) {
+      .email-capture-box .email-row { flex-direction: column; }
+    }
+    .email-capture-box input[type="email"] {
+      flex: 1;
+      padding: 13px 16px;
+      border: 2px solid var(--bg-dark);
+      border-radius: 10px;
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 0.95rem;
+      color: var(--text);
+      background: var(--white);
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .email-capture-box input[type="email"]:focus { border-color: var(--blue); }
+    .email-capture-box .email-send-btn {
+      padding: 13px 22px;
+      background: var(--blue);
+      color: var(--white);
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-weight: 700;
+      font-size: 0.92rem;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: background 0.2s, transform 0.1s;
+    }
+    .email-capture-box .email-send-btn:hover { background: var(--blue-dark); transform: translateY(-1px); }
+    .email-capture-box .email-confirm {
+      display: none;
+      margin-top: 12px;
+      font-size: 0.85rem;
+      font-style: italic;
+      color: var(--text-muted);
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+    }
+    .email-capture-box .email-confirm.visible { display: block; }
+
+    /* on-blue variant for use over the blue background sections */
+    .email-capture-box.on-blue { background: rgba(255,255,255,0.12); }
+    .email-capture-box.on-blue input[type="email"] {
+      background: rgba(255,255,255,0.12);
+      border-color: rgba(255,255,255,0.3);
+      color: var(--white);
+    }
+    .email-capture-box.on-blue input[type="email"]::placeholder { color: rgba(255,255,255,0.6); }
+    .email-capture-box.on-blue .email-send-btn { background: var(--white); color: var(--blue); }
+    .email-capture-box.on-blue .email-send-btn:hover { background: rgba(255,255,255,0.9); }
+    .email-capture-box.on-blue .email-confirm { color: rgba(255,255,255,0.85); }
 
     /* ── WHO THIS IS FOR ── */
     .for-section {
@@ -510,7 +554,7 @@
 
 <!-- HEADER -->
 <header>
-  <div class="logo">kev<span>wealth</span></div>
+  <div class="logo">kev<span>nomics</span></div>
   <div class="lang-toggle">
     <button class="lang-btn active" id="btn-en" onclick="setLang('en')">EN</button>
     <button class="lang-btn" id="btn-es" onclick="setLang('es')">ES</button>
@@ -520,16 +564,16 @@
 <!-- HERO -->
 <section class="hero">
   <div class="hero-eyebrow">
-    <span class="t-en">Free 30-Minute Discovery Call</span>
-    <span class="t-es">Llamada de Descubrimiento Gratis — 30 Minutos</span>
+    <span class="t-en">Free 60-Second Money Snapshot</span>
+    <span class="t-es">Panorama Financiero Gratis en 60 Segundos</span>
   </div>
   <h1>
     <span class="t-en">Your money deserves a <em>clear plan.</em></span>
     <span class="t-es">Tu dinero merece un <em>plan claro.</em></span>
   </h1>
   <p>
-    <span class="t-en">Kevwealth is bilingual financial coaching for Latino families, young professionals, and growing households — without the jargon, judgment, or sales pitch.</span>
-    <span class="t-es">Kevwealth es coaching financiero bilingüe para familias latinas, jóvenes profesionales y hogares en crecimiento — sin jerga, sin juicios, sin ventas.</span>
+    <span class="t-en">Kevnomics is bilingual financial coaching for Latino families, young professionals, and growing households — without the jargon, judgment, or sales pitch.</span>
+    <span class="t-es">Kevnomics es coaching financiero bilingüe para familias latinas, jóvenes profesionales y hogares en crecimiento — sin jerga, sin juicios, sin ventas.</span>
   </p>
   <button class="hero-cta" onclick="scrollToQuiz()">
     <span class="t-en">Take the 60-second quiz →</span>
@@ -714,13 +758,19 @@
             </p>
           </div>
           <p class="price-line">
-            <span class="t-en">Starts with a free 30-minute discovery call. The Money Map session is <strong>$497</strong> — paid after the call if it's a fit.</span>
-            <span class="t-es">Comienza con una llamada de descubrimiento gratis de 30 minutos. La sesión Money Map es <strong>$497</strong> — se paga después de la llamada si hay buena compatibilidad.</span>
+            <span class="t-en">The Money Map session is <strong>$497</strong>. Drop your email below and I'll send you the details and your next step.</span>
+            <span class="t-es">La sesión Money Map cuesta <strong>$497</strong>. Deja tu correo abajo y te enviaré los detalles y tu próximo paso.</span>
           </p>
-          <a href="https://calendly.com/almabudget/15min" target="_blank" class="book-btn">
-            <span class="t-en">Book your free discovery call →</span>
-            <span class="t-es">Reserva tu llamada de descubrimiento gratis →</span>
-          </a>
+          <div class="email-capture-box">
+            <div class="email-row">
+              <input type="email" id="result-email" placeholder="your@email.com" />
+              <button class="email-send-btn" onclick="submitEmailCapture('result-email','result-email-confirm','Money Map Quiz Result')">
+                <span class="t-en">Get My Money Map</span>
+                <span class="t-es">Recibir Mi Money Map</span>
+              </button>
+            </div>
+            <div class="email-confirm" id="result-email-confirm"></div>
+          </div>
           <button class="retake-btn" onclick="retakeQuiz()">
             <span class="t-en">← Retake the quiz</span>
             <span class="t-es">← Volver a hacer el quiz</span>
@@ -736,8 +786,8 @@
 <section class="for-section">
   <div class="for-inner">
     <h2>
-      <span class="t-en">Who Kevwealth is for</span>
-      <span class="t-es">Para quién es Kevwealth</span>
+      <span class="t-en">Who Kevnomics is for</span>
+      <span class="t-es">Para quién es Kevnomics</span>
     </h2>
     <p>
       <span class="t-en">If any of these sound like you, you're in the right place.</span>
@@ -779,16 +829,16 @@
 <!-- ABOUT -->
 <section class="about-section">
   <h2>
-    <span class="t-en">Why Kevwealth exists</span>
-    <span class="t-es">Por qué existe Kevwealth</span>
+    <span class="t-en">Why Kevnomics exists</span>
+    <span class="t-es">Por qué existe Kevnomics</span>
   </h2>
   <p>
     <span class="t-en">A lot of financial advice wasn't built for us. It assumes you had someone at the dinner table who talked about money clearly, that you've never had to send a wire to another country, and that your biggest concern is which index fund to pick.</span>
     <span class="t-es">Mucho del asesoramiento financiero no fue creado para nosotros. Asume que alguien en tu familia te habló de dinero con claridad, que nunca has tenido que enviar una remesa, y que tu mayor preocupación es qué fondo indexado elegir.</span>
   </p>
   <p>
-    <span class="t-en">Kevwealth is for everyone else. The coaching is bilingual, the approach is real, and there's no product being sold — just education and a clear next step built around your actual life.</span>
-    <span class="t-es">Kevwealth es para todos los demás. El coaching es bilingüe, el enfoque es real, y no se vende ningún producto — solo educación y un próximo paso claro diseñado alrededor de tu vida real.</span>
+    <span class="t-en">Kevnomics is for everyone else. The coaching is bilingual, the approach is real, and there's no product being sold — just education and a clear next step built around your actual life.</span>
+    <span class="t-es">Kevnomics es para todos los demás. El coaching es bilingüe, el enfoque es real, y no se vende ningún producto — solo educación y un próximo paso claro diseñado alrededor de tu vida real.</span>
   </p>
   <div class="sig">— Kevin, Founder</div>
 </section>
@@ -800,22 +850,28 @@
     <span class="t-es">¿Listo/a para ver lo que <em>realmente es posible?</em></span>
   </h2>
   <p>
-    <span class="t-en">The first call is free. No pressure, no pitch — just 30 minutes to see if we're a good fit.</span>
-    <span class="t-es">La primera llamada es gratis. Sin presión, sin ventas — solo 30 minutos para ver si somos una buena combinación.</span>
+    <span class="t-en">No pressure, no pitch — just leave your email and we'll follow up with your next step.</span>
+    <span class="t-es">Sin presión, sin ventas — solo deja tu correo y te contactaremos con tu próximo paso.</span>
   </p>
-  <a href="https://calendly.com/almabudget/15min" target="_blank" class="hero-cta">
-    <span class="t-en">Book the free call →</span>
-    <span class="t-es">Reserva la llamada gratis →</span>
-  </a>
+  <div class="email-capture-box on-blue" style="max-width:460px;margin:0 auto;">
+    <div class="email-row">
+      <input type="email" id="bottom-email" placeholder="your@email.com" />
+      <button class="email-send-btn" onclick="submitEmailCapture('bottom-email','bottom-email-confirm','Bottom CTA')">
+        <span class="t-en">Get Started →</span>
+        <span class="t-es">Comenzar →</span>
+      </button>
+    </div>
+    <div class="email-confirm" id="bottom-email-confirm"></div>
+  </div>
 </section>
 
 <!-- FOOTER -->
 <footer>
   <p>
-    <span class="t-en">Kevwealth provides financial coaching and education only. We are not a Registered Investment Advisor, broker-dealer, tax preparer, attorney, or licensed insurance agent. Nothing here should be taken as personalized investment, tax, legal, or insurance advice. For those services, please consult a properly licensed professional.</span>
-    <span class="t-es">Kevwealth ofrece servicios de coaching y educación financiera únicamente. No somos un asesor de inversiones registrado, corredor de bolsa, preparador de impuestos, abogado, ni agente de seguros licenciado. Nada aquí debe considerarse como asesoría personalizada en inversiones, impuestos, asuntos legales o seguros. Para esos servicios, por favor consulta a un profesional debidamente licenciado.</span>
+    <span class="t-en">Kevnomics provides financial coaching and education only. We are not a Registered Investment Advisor, broker-dealer, tax preparer, attorney, or licensed insurance agent. Nothing here should be taken as personalized investment, tax, legal, or insurance advice. For those services, please consult a properly licensed professional.</span>
+    <span class="t-es">Kevnomics ofrece servicios de coaching y educación financiera únicamente. No somos un asesor de inversiones registrado, corredor de bolsa, preparador de impuestos, abogado, ni agente de seguros licenciado. Nada aquí debe considerarse como asesoría personalizada en inversiones, impuestos, asuntos legales o seguros. Para esos servicios, por favor consulta a un profesional debidamente licenciado.</span>
   </p>
-  <p style="margin-top:10px;">© 2026 Kevwealth</p>
+  <p style="margin-top:10px;">© 2026 Kevnomics</p>
 </footer>
 
 <script>
@@ -937,6 +993,33 @@
 
   function scrollToQuiz() {
     document.getElementById('quiz-section').scrollIntoView({ behavior: 'smooth' });
+  }
+
+  // ── EMAIL CAPTURE ──
+  function submitEmailCapture(inputId, confirmId, source) {
+    const emailEl = document.getElementById(inputId);
+    const email = emailEl.value.trim();
+    if (!email || !email.includes('@')) {
+      emailEl.focus();
+      return;
+    }
+
+    const isEs = document.body.classList.contains('lang-es');
+    const profile = answers[1] || 'n/a';
+    const subject = `[Kevnomics Lead] ${source} — ${email}`;
+    const body = `New lead from the Kevnomics landing page (${source}):\n\n` +
+      `Email: ${email}\n` +
+      `Quiz profile: ${profile}\n` +
+      `Language: ${isEs ? 'es' : 'en'}`;
+    const mailtoKevin = `mailto:kevinckafie@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}&cc=${encodeURIComponent(email)}`;
+
+    window.location.href = mailtoKevin;
+
+    const confirmEl = document.getElementById(confirmId);
+    confirmEl.textContent = isEs
+      ? '✓ Abriendo tu cliente de correo — ¡solo presiona Enviar! Te contactaremos pronto.'
+      : '✓ Opening your email client — just hit Send! We\'ll follow up shortly.';
+    confirmEl.classList.add('visible');
   }
 
   // Language-aware result refresh when toggling mid-result

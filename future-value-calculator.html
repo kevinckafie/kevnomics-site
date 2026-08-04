@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Kevwealth — Future Value Calculator</title>
+  <title>Kevnomics — Future Value Calculator</title>
   <style>
     :root {
       --blue: #1196F0;
@@ -405,33 +405,6 @@
       font-style: italic;
     }
 
-    /* ── CTA ── */
-    .cta-card {
-      background: linear-gradient(135deg, var(--blue-light), #dbeeff);
-      border-radius: var(--radius);
-      padding: 28px 32px;
-      text-align: center;
-      margin-bottom: 20px;
-    }
-    .cta-card p {
-      font-size: 0.97rem;
-      color: var(--text);
-      margin-bottom: 16px;
-      line-height: 1.6;
-    }
-    .cta-card a {
-      display: inline-block;
-      background: var(--blue);
-      color: var(--white);
-      text-decoration: none;
-      font-weight: 700;
-      font-size: 0.95rem;
-      padding: 12px 28px;
-      border-radius: 10px;
-      transition: background 0.2s;
-    }
-    .cta-card a:hover { background: var(--blue-dark); }
-
     /* ── DISCLAIMER ── */
     .disclaimer {
       background: var(--bg-dark);
@@ -543,7 +516,7 @@
 <body>
 
 <header>
-  <div class="logo">Kev<span>wealth</span></div>
+  <div class="logo">Kev<span>nomics</span></div>
   <div class="lang-toggle">
     <button class="lang-btn active" onclick="setLang('en')" id="btn-en">EN</button>
     <button class="lang-btn" onclick="setLang('es')" id="btn-es">ES</button>
@@ -694,12 +667,6 @@
       <div class="email-confirm" id="email-confirm"></div>
     </div>
 
-    <!-- CTA -->
-    <div class="cta-card">
-      <p id="cta-text"></p>
-      <a href="mailto:kevinckafie@gmail.com" id="cta-link">Book a Free Discovery Call</a>
-    </div>
-
     <!-- Disclaimer -->
     <div class="disclaimer" id="disclaimer-text"></div>
 
@@ -713,7 +680,7 @@
 </div><!-- /container -->
 
 <footer>
-  <div>© 2026 Kevwealth — Financial Coaching & Education</div>
+  <div>© 2026 Kevnomics — Financial Coaching & Education</div>
   <div style="margin-top:6px;">Financial coaching, not advice. Consult a licensed professional for investment, tax, legal, or insurance decisions.</div>
 </footer>
 
@@ -937,16 +904,10 @@
     document.getElementById('summary-text').innerHTML = generateSummary(pv0, pmt0, rate0, years0, total, contributions, interest, interestPct);
     document.querySelector('.summary-card h3 span').textContent = lang === 'en' ? 'What This Means For You' : 'Lo Que Esto Significa Para Ti';
 
-    // CTA
-    document.getElementById('cta-text').textContent = lang === 'en'
-      ? 'These numbers are a starting point. Want to build a real plan around them — one that fits your family, your goals, and your actual budget?'
-      : 'Estos números son un punto de partida. ¿Quieres construir un plan real alrededor de ellos — uno que se adapte a tu familia, tus metas y tu presupuesto real?';
-    document.getElementById('cta-link').textContent = lang === 'en' ? 'Book a Free Discovery Call' : 'Agenda una Llamada Gratuita';
-
     // Disclaimer
     document.getElementById('disclaimer-text').innerHTML = lang === 'en'
-      ? '<strong>Educational use only.</strong> This calculator provides a hypothetical projection based on constant rates of return. It does not account for taxes, fees, inflation, or investment risk. Actual results will vary. Kevwealth provides financial coaching and education only — not investment, tax, legal, or insurance advice. Consult a properly licensed professional for personalized guidance.'
-      : '<strong>Solo para uso educativo.</strong> Esta calculadora ofrece una proyección hipotética basada en tasas de rendimiento constantes. No contempla impuestos, comisiones, inflación ni riesgo de inversión. Los resultados reales pueden variar. Kevwealth ofrece coaching y educación financiera únicamente — no asesoría de inversiones, impuestos, asuntos legales ni seguros. Consulta a un profesional debidamente licenciado para orientación personalizada.';
+      ? '<strong>Educational use only.</strong> This calculator provides a hypothetical projection based on constant rates of return. It does not account for taxes, fees, inflation, or investment risk. Actual results will vary. Kevnomics provides financial coaching and education only — not investment, tax, legal, or insurance advice. Consult a properly licensed professional for personalized guidance.'
+      : '<strong>Solo para uso educativo.</strong> Esta calculadora ofrece una proyección hipotética basada en tasas de rendimiento constantes. No contempla impuestos, comisiones, inflación ni riesgo de inversión. Los resultados reales pueden variar. Kevnomics ofrece coaching y educación financiera únicamente — no asesoría de inversiones, impuestos, asuntos legales ni seguros. Consulta a un profesional debidamente licenciado para orientación personalizada.';
 
     // Reset button
     document.querySelector('.reset-btn').textContent = lang === 'en'
@@ -984,11 +945,11 @@
 
     const c = _lastCalc;
     const subject = lang === 'en'
-      ? `Your Kevwealth Future Value Projection`
-      : `Tu Proyección de Valor Futuro — Kevwealth`;
+      ? `Your Kevnomics Future Value Projection`
+      : `Tu Proyección de Valor Futuro — Kevnomics`;
 
     const body = lang === 'en'
-      ? `Hi!\n\nHere's a summary of your Kevwealth future value projection:\n\n` +
+      ? `Hi!\n\nHere's a summary of your Kevnomics future value projection:\n\n` +
         `Starting Amount: ${fmt(c.pv0)}\n` +
         `Monthly Contribution: ${fmt(c.pmt0)}\n` +
         `Annual Return: ${c.rate0}%\n` +
@@ -999,11 +960,9 @@
         `Interest Earned: ${fmt(c.interest)}\n` +
         `Interest as % of Total: ${Math.round(c.interestPct)}%\n\n` +
         `These are hypothetical projections for educational purposes only.\n` +
-        `Kevwealth provides financial coaching and education — not investment, tax, or legal advice.\n\n` +
-        `Want to build a real plan around these numbers?\n` +
-        `Book a free discovery call: mailto:kevinckafie@gmail.com\n\n` +
-        `— Kevwealth`
-      : `¡Hola!\n\nAquí está el resumen de tu proyección de valor futuro de Kevwealth:\n\n` +
+        `Kevnomics provides financial coaching and education — not investment, tax, or legal advice.\n\n` +
+        `— Kevnomics`
+      : `¡Hola!\n\nAquí está el resumen de tu proyección de valor futuro de Kevnomics:\n\n` +
         `Cantidad inicial: ${fmt(c.pv0)}\n` +
         `Aportación mensual: ${fmt(c.pmt0)}\n` +
         `Rendimiento anual: ${c.rate0}%\n` +
@@ -1014,13 +973,11 @@
         `Interés ganado: ${fmt(c.interest)}\n` +
         `Interés como % del total: ${Math.round(c.interestPct)}%\n\n` +
         `Estas son proyecciones hipotéticas únicamente con fines educativos.\n` +
-        `Kevwealth ofrece coaching y educación financiera — no asesoría de inversiones, impuestos ni legal.\n\n` +
-        `¿Quieres construir un plan real con estos números?\n` +
-        `Agenda una llamada gratuita: mailto:kevinckafie@gmail.com\n\n` +
-        `— Kevwealth`;
+        `Kevnomics ofrece coaching y educación financiera — no asesoría de inversiones, impuestos ni legal.\n\n` +
+        `— Kevnomics`;
 
     // Notify Kevin of the lead AND send summary to user
-    const leadSubject = `[Kevwealth Lead] New FV Calc — ${email}`;
+    const leadSubject = `[Kevnomics Lead] New FV Calc — ${email}`;
     const leadBody = `New lead from the Future Value Calculator:\n\nEmail: ${email}\n\n` + body;
     const mailtoKevin = `mailto:kevinckafie@gmail.com?subject=${encodeURIComponent(leadSubject)}&body=${encodeURIComponent(leadBody)}&cc=${encodeURIComponent(email)}`;
 
