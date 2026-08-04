@@ -401,6 +401,7 @@
       transition: background 0.2s, transform 0.1s;
     }
     .email-capture-box .email-send-btn:hover { background: var(--blue-dark); transform: translateY(-1px); }
+    .email-capture-box .email-send-btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
     .email-capture-box .email-confirm {
       display: none;
       margin-top: 12px;
@@ -996,7 +997,7 @@
   }
 
   // ── EMAIL CAPTURE ──
-  function submitEmailCapture(inputId, confirmId, source) {
+  async function submitEmailCapture(inputId, confirmId, source) {
     const emailEl = document.getElementById(inputId);
     const email = emailEl.value.trim();
     if (!email || !email.includes('@')) {
@@ -1006,20 +1007,41 @@
 
     const isEs = document.body.classList.contains('lang-es');
     const profile = answers[1] || 'n/a';
-    const subject = `[Kevnomics Lead] ${source} — ${email}`;
-    const body = `New lead from the Kevnomics landing page (${source}):\n\n` +
-      `Email: ${email}\n` +
-      `Quiz profile: ${profile}\n` +
-      `Language: ${isEs ? 'es' : 'en'}`;
-    const mailtoKevin = `mailto:kevinckafie@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}&cc=${encodeURIComponent(email)}`;
-
-    window.location.href = mailtoKevin;
-
     const confirmEl = document.getElementById(confirmId);
-    confirmEl.textContent = isEs
-      ? '✓ Abriendo tu cliente de correo — ¡solo presiona Enviar! Te contactaremos pronto.'
-      : '✓ Opening your email client — just hit Send! We\'ll follow up shortly.';
-    confirmEl.classList.add('visible');
+    const btn = emailEl.closest('.email-row').querySelector('.email-send-btn');
+    const originalBtnHTML = btn.innerHTML;
+    confirmEl.classList.remove('visible');
+    btn.disabled = true;
+    btn.textContent = isEs ? 'Enviando...' : 'Sending...';
+
+    const payload = {
+      email: email,
+      source: source,
+      quiz_profile: profile,
+      language: isEs ? 'es' : 'en'
+    };
+
+    try {
+      const res = await fetch('https://formspree.io/f/xyegggoo', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+      if (!res.ok) throw new Error('Formspree error');
+
+      confirmEl.textContent = isEs
+        ? '✓ ¡Recibido! Revisa tu correo — te contactaremos pronto.'
+        : '✓ Got it! Keep an eye on your inbox — we\'ll follow up shortly.';
+      confirmEl.classList.add('visible');
+      btn.textContent = isEs ? '✓ Enviado' : '✓ Sent';
+    } catch (err) {
+      confirmEl.textContent = isEs
+        ? 'Algo salió mal. Por favor intenta de nuevo, o escribe directamente a kevinckafie@gmail.com.'
+        : 'Something went wrong sending that. Please try again, or email kevinckafie@gmail.com directly.';
+      confirmEl.classList.add('visible');
+      btn.disabled = false;
+      btn.innerHTML = originalBtnHTML;
+    }
   }
 
   // Language-aware result refresh when toggling mid-result

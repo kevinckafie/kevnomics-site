@@ -490,6 +490,7 @@
       transition: opacity 0.2s, transform 0.1s;
     }
     .email-send-btn:hover { opacity: 0.9; transform: translateY(-1px); }
+    .email-send-btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
     .email-confirm {
       display: none;
       background: rgba(255,255,255,0.15);
@@ -936,60 +937,55 @@
     document.getElementById('email-btn').textContent = lang === 'en' ? 'Send My Results' : 'Enviar Mis Resultados';
   }
 
-  function sendResults() {
-    const email = document.getElementById('lead-email').value.trim();
+  async function sendResults() {
+    const emailInput = document.getElementById('lead-email');
+    const email = emailInput.value.trim();
     if (!email || !email.includes('@')) {
-      document.getElementById('lead-email').focus();
+      emailInput.focus();
       return;
     }
 
     const c = _lastCalc;
-    const subject = lang === 'en'
-      ? `Your Kevnomics Future Value Projection`
-      : `Tu Proyección de Valor Futuro — Kevnomics`;
-
-    const body = lang === 'en'
-      ? `Hi!\n\nHere's a summary of your Kevnomics future value projection:\n\n` +
-        `Starting Amount: ${fmt(c.pv0)}\n` +
-        `Monthly Contribution: ${fmt(c.pmt0)}\n` +
-        `Annual Return: ${c.rate0}%\n` +
-        `Time Horizon: ${c.years0} years\n\n` +
-        `--- RESULTS ---\n` +
-        `Future Value: ${fmt(c.total)}\n` +
-        `Total Contributions: ${fmt(c.contributions)}\n` +
-        `Interest Earned: ${fmt(c.interest)}\n` +
-        `Interest as % of Total: ${Math.round(c.interestPct)}%\n\n` +
-        `These are hypothetical projections for educational purposes only.\n` +
-        `Kevnomics provides financial coaching and education — not investment, tax, or legal advice.\n\n` +
-        `— Kevnomics`
-      : `¡Hola!\n\nAquí está el resumen de tu proyección de valor futuro de Kevnomics:\n\n` +
-        `Cantidad inicial: ${fmt(c.pv0)}\n` +
-        `Aportación mensual: ${fmt(c.pmt0)}\n` +
-        `Rendimiento anual: ${c.rate0}%\n` +
-        `Horizonte de tiempo: ${c.years0} años\n\n` +
-        `--- RESULTADOS ---\n` +
-        `Valor Futuro: ${fmt(c.total)}\n` +
-        `Total de aportaciones: ${fmt(c.contributions)}\n` +
-        `Interés ganado: ${fmt(c.interest)}\n` +
-        `Interés como % del total: ${Math.round(c.interestPct)}%\n\n` +
-        `Estas son proyecciones hipotéticas únicamente con fines educativos.\n` +
-        `Kevnomics ofrece coaching y educación financiera — no asesoría de inversiones, impuestos ni legal.\n\n` +
-        `— Kevnomics`;
-
-    // Notify Kevin of the lead AND send summary to user
-    const leadSubject = `[Kevnomics Lead] New FV Calc — ${email}`;
-    const leadBody = `New lead from the Future Value Calculator:\n\nEmail: ${email}\n\n` + body;
-    const mailtoKevin = `mailto:kevinckafie@gmail.com?subject=${encodeURIComponent(leadSubject)}&body=${encodeURIComponent(leadBody)}&cc=${encodeURIComponent(email)}`;
-
-    window.location.href = mailtoKevin;
-
+    const btn = document.getElementById('email-btn');
     const confirmEl = document.getElementById('email-confirm');
-    confirmEl.textContent = lang === 'en'
-      ? '✓ Opening your email client — just hit Send! We\'ll follow up shortly.'
-      : '✓ Abriendo tu cliente de correo — ¡solo presiona Enviar! Estaremos en contacto pronto.';
-    confirmEl.classList.add('visible');
-    document.getElementById('email-btn').textContent = lang === 'en' ? '✓ Opening...' : '✓ Abriendo...';
-    document.getElementById('email-btn').style.opacity = '0.6';
+    confirmEl.classList.remove('visible');
+    btn.disabled = true;
+    btn.textContent = lang === 'en' ? 'Sending...' : 'Enviando...';
+
+    const payload = {
+      email: email,
+      source: 'Future Value Calculator',
+      language: lang,
+      starting_amount: fmt(c.pv0),
+      monthly_contribution: fmt(c.pmt0),
+      annual_return: `${c.rate0}%`,
+      time_horizon_years: c.years0,
+      future_value: fmt(c.total),
+      total_contributions: fmt(c.contributions),
+      interest_earned: fmt(c.interest)
+    };
+
+    try {
+      const res = await fetch('https://formspree.io/f/xyegggoo', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+      if (!res.ok) throw new Error('Formspree error');
+
+      confirmEl.textContent = lang === 'en'
+        ? '✓ Got it! Keep an eye on your inbox — we\'ll follow up shortly.'
+        : '✓ ¡Recibido! Revisa tu correo — te contactaremos pronto.';
+      confirmEl.classList.add('visible');
+      btn.textContent = lang === 'en' ? '✓ Sent' : '✓ Enviado';
+    } catch (err) {
+      confirmEl.textContent = lang === 'en'
+        ? 'Something went wrong sending that. Please try again, or email kevinckafie@gmail.com directly.'
+        : 'Algo salió mal. Por favor intenta de nuevo, o escribe directamente a kevinckafie@gmail.com.';
+      confirmEl.classList.add('visible');
+      btn.disabled = false;
+      btn.textContent = lang === 'en' ? 'Send My Results' : 'Enviar Mis Resultados';
+    }
   }
 
   // ── RESET ────────────────────────────────────────────────────────
