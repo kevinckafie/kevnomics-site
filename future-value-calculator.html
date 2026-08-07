@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Kevnomics — Future Value Calculator</title>
+  <title>Money Map — Future Value Calculator</title>
   <style>
     :root {
       --blue: #1196F0;
@@ -517,7 +517,7 @@
 <body>
 
 <header>
-  <div class="logo">Kev<span>nomics</span></div>
+  <div class="logo">Money<span>Map</span></div>
   <div class="lang-toggle">
     <button class="lang-btn active" onclick="setLang('en')" id="btn-en">EN</button>
     <button class="lang-btn" onclick="setLang('es')" id="btn-es">ES</button>
@@ -681,7 +681,7 @@
 </div><!-- /container -->
 
 <footer>
-  <div>© 2026 Kevnomics — Financial Coaching & Education</div>
+  <div>© 2026 Money Map — Financial Coaching & Education</div>
   <div style="margin-top:6px;">Financial coaching, not advice. Consult a licensed professional for investment, tax, legal, or insurance decisions.</div>
 </footer>
 
@@ -907,8 +907,8 @@
 
     // Disclaimer
     document.getElementById('disclaimer-text').innerHTML = lang === 'en'
-      ? '<strong>Educational use only.</strong> This calculator provides a hypothetical projection based on constant rates of return. It does not account for taxes, fees, inflation, or investment risk. Actual results will vary. Kevnomics provides financial coaching and education only — not investment, tax, legal, or insurance advice. Consult a properly licensed professional for personalized guidance.'
-      : '<strong>Solo para uso educativo.</strong> Esta calculadora ofrece una proyección hipotética basada en tasas de rendimiento constantes. No contempla impuestos, comisiones, inflación ni riesgo de inversión. Los resultados reales pueden variar. Kevnomics ofrece coaching y educación financiera únicamente — no asesoría de inversiones, impuestos, asuntos legales ni seguros. Consulta a un profesional debidamente licenciado para orientación personalizada.';
+      ? '<strong>Educational use only.</strong> This calculator provides a hypothetical projection based on constant rates of return. It does not account for taxes, fees, inflation, or investment risk. Actual results will vary. Money Map provides financial coaching and education only — not investment, tax, legal, or insurance advice. Consult a properly licensed professional for personalized guidance.'
+      : '<strong>Solo para uso educativo.</strong> Esta calculadora ofrece una proyección hipotética basada en tasas de rendimiento constantes. No contempla impuestos, comisiones, inflación ni riesgo de inversión. Los resultados reales pueden variar. Money Map ofrece coaching y educación financiera únicamente — no asesoría de inversiones, impuestos, asuntos legales ni seguros. Consulta a un profesional debidamente licenciado para orientación personalizada.';
 
     // Reset button
     document.querySelector('.reset-btn').textContent = lang === 'en'
